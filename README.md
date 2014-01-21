@@ -39,3 +39,7 @@ class Block(pygame.sprite.Sprite):
 
 Not written yet.
 See the [main file](https://github.com/DeathMiner/PyGame-Side-Collisions/blob/master/side_collisions.py) comments for info.
+
+##License
+
+Released under the [MIT License](https://github.com/DeathMiner/PyGame-Side-Collisions/blob/master/LICENSE)
