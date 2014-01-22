@@ -20,8 +20,8 @@ class Velocity():
 	#
 	# Instantiates the class
 	# 
-	# @param object self     The class itself
-	# @param list   velocity The velocity to apply, default is 0 on both axis
+	# @param  object self     The class itself
+	# @param  list   velocity The velocity to apply, default is 0 on both axis
 	# @return void
 	def __init__(self, velocity=[0,0]):
 
@@ -40,8 +40,9 @@ class Velocity():
 #
 # Check if B collide on left of A
 # 
-# @param object A The First sprite to check collision to
-# @param object B The second sprite wich would collide A on left
+# @param  object A The First sprite to check collision to
+# @param  object B The second sprite wich would collide A on left
+# @return bool     The result of the test
 def left(A, B):
 
 	# Set velocity to B if there's no
@@ -60,14 +61,15 @@ def left(A, B):
 			if B.velocity.x > 0:
 				return True
 
-	# Instead return False	
+	# Instead return False        
 	return False
 
 #
 # Check if B collide on right of A
 # 
-# @param object A The First sprite to check collision to
-# @param object B The second sprite wich would collide A on right
+# @param  object A The First sprite to check collision to
+# @param  object B The second sprite wich would collide A on right
+# @return bool     The result of the test
 def right(A, B):
 
 	# Set velocity to B if there's no
@@ -86,14 +88,15 @@ def right(A, B):
 			if B.velocity.x < 0:
 				return True
 
-	# Instead return False	
+	# Instead return False        
 	return False
 
 #
 # Check if B collide on top of A
 # 
-# @param object A The First sprite to check collision to
-# @param object B The second sprite wich would collide A on top
+# @param  object A The First sprite to check collision to
+# @param  object B The second sprite wich would collide A on top
+# @return bool     The result of the test
 def top(A, B):
 
 	# Set velocity to B if there's no
@@ -112,14 +115,15 @@ def top(A, B):
 			if B.velocity.y < 0:
 				return True
 
-	# Instead return False	
+	# Instead return False        
 	return False
 
 #
 # Check if B collide on bottom of A
 # 
-# @param object A The First sprite to check collision to
-# @param object B The second sprite wich would collide A on bottom
+# @param  object A The First sprite to check collision to
+# @param  object B The second sprite wich would collide A on bottom
+# @return bool     The result of the test
 def bottom(A, B):
 
 	# Set velocity to B if there's no
@@ -138,7 +142,7 @@ def bottom(A, B):
 			if B.velocity.y < 0:
 				return True
 
-	# Instead return False	
+	# Instead return False        
 	return False
 
 #
@@ -149,45 +153,54 @@ class __Multiple():
 	#
 	# Inits __Multiple class
 	#
-	# @param object self  The class itself
-	# @param list   sides The sides wich has to be detected
+	# @param  object self  The class itself
+	# @param  list   sides The sides wich has to be detected
+	# @return void
 	def __init__(self, sides):
 		self.sides = sides
+		self.done_sides = []
 	
 	#
 	# Checks detection on multiple sides
 	#
-	# @param object self The class itself
-	# @param object A    The first sprite
-	# @param object B    The second sprite
-	def fcn(self, A, B):
+	# @param  object self The class itself
+	# @param  object A    The first sprite
+	# @param  object B    The second sprite
+	# @return bool        The result of the tests
+	def check_sides(self, A, B):
 		
 		# Navigate trough list
-		for side in sef.sides:
-			
-			# Check for left if selected
-			if side == "left":
-				if left(A, B) == True:
-					return True
-					
-			# Check for right if selected
-			elif side == "right":
-				if right(A, B) == True:
-					return True
-					
-			# Check for top if selected
-			elif side == "top":
-				if top(A, B) == True:
-					return True
-					
-			# Check for bottom if selected
-			elif side == "bottom":
-				if bottom(A, B) == True:
-					return True
-			
-			# Error if invalid side name
-			else:
-				print("Unknown side name passed in multiple side detections: \""+str(side)+"\"")
+		for side in self.sides:
+
+			# Check if side test was done before
+			if side not in self.done_sides:
+
+				# Insert that element
+				self.done_sides.append(side)
+
+				# Check for left if selected
+				if side == "left":
+					if left(A, B) == True:
+						return True
+						
+				# Check for right if selected
+				elif side == "right":
+					if right(A, B) == True:
+						return True
+						
+				# Check for top if selected
+				elif side == "top":
+					if top(A, B) == True:
+						return True
+						
+				# Check for bottom if selected
+				elif side == "bottom":
+					if bottom(A, B) == True:
+						return True
+				
+				# Error if invalid side name
+				else:
+					print("Unknown side name passed in multiple side detections: \""+str(side)+"\"")
 				
 		# Return False if no collision detected
 		return False
@@ -195,7 +208,8 @@ class __Multiple():
 #
 # Check for collisions on multiple sides
 #
-# @param list A list of collisions: left, right, top, bottom available
+# @param  list     sides A list of collisions: left, right, top, bottom available
+# @return function       The function passed as collided callback
 def multiple(sides):
-	return __Multiple(sides).fcn
-	
+	multiple_class = __Multiple(sides)
+	return multiple_class.fcn
