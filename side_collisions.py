@@ -18,25 +18,23 @@ import pygame
 class Velocity():
 
 	#
-	# Velocity in x axis
-	# 
-	# @var int
-	x = 0
-	
-	#
-	# Velocity in x axis
-	# 
-	# @var int
-	y = 0
-
-	#
 	# Instantiates the class
 	# 
 	# @param object self     The class itself
 	# @param list   velocity The velocity to apply, default is 0 on both axis
 	# @return void
 	def __init__(self, velocity=[0,0]):
+
+		#
+		# Velocity in x axis
+		# 
+		# @var int
 		self.x = velocity[0]
+	
+		#
+		# Velocity in x axis
+		# 
+		# @var int
 		self.y = velocity[1]
 
 #
