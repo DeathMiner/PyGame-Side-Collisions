@@ -38,6 +38,19 @@ class Velocity():
 		self.y = velocity[1]
 
 #
+# Checks if sprites has velocity, if not add it
+# 
+# @param  object A The first sprite
+# @param  object B The second sprite
+# @return void
+def check_velocity(A, B):
+	if hasattr(A, "velocity") == False:
+		A.velocity = Velocity()
+
+	if hasattr(B, "velocity") == False:
+		B.velocity = Velocity()
+
+#
 # Check if B collide on left of A
 # 
 # @param  object A The First sprite to check collision to
@@ -45,9 +58,8 @@ class Velocity():
 # @return bool     The result of the test
 def left(A, B):
 
-	# Set velocity to B if there's no
-	if hasattr(B, "velocity") == False:
-		B.velocity = Velocity()
+	# Set velocity to both sprites if there's no
+	check_velocity(A, B)
 
 	# First check if A & B collide themselves
 	if pygame.sprite.collide_rect(A, B) == True:
@@ -72,9 +84,8 @@ def left(A, B):
 # @return bool     The result of the test
 def right(A, B):
 
-	# Set velocity to B if there's no
-	if hasattr(B, "velocity") == False:
-		B.velocity = Velocity()
+	# Set velocity to both sprites if there's no
+	check_velocity(A, B)
 
 	# First check if A & B collide themselves
 	if pygame.sprite.collide_rect(A, B) == True:
@@ -99,9 +110,8 @@ def right(A, B):
 # @return bool     The result of the test
 def top(A, B):
 
-	# Set velocity to B if there's no
-	if hasattr(B, "velocity") == False:
-		B.velocity = Velocity()
+	# Set velocity to both sprites if there's no
+	check_velocity(A, B)
 
 	# First check if A & B collide themselves
 	if pygame.sprite.collide_rect(A, B) == True:
@@ -126,9 +136,8 @@ def top(A, B):
 # @return bool     The result of the test
 def bottom(A, B):
 
-	# Set velocity to B if there's no
-	if hasattr(B, "velocity") == False:
-		B.velocity = Velocity()
+	# Set velocity to both sprites if there's no
+	check_velocity(A, B)
 
 	# First check if A & B collide themselves
 	if pygame.sprite.collide_rect(A, B) == True:
@@ -158,7 +167,6 @@ class __Multiple():
 	# @return void
 	def __init__(self, sides):
 		self.sides = sides
-		self.done_sides = []
 	
 	#
 	# Checks detection on multiple sides
@@ -168,15 +176,18 @@ class __Multiple():
 	# @param  object B    The second sprite
 	# @return bool        The result of the tests
 	def check_sides(self, A, B):
+
+		# Array keeping already done sides test for not repeating tasks
+		done_sides = []
 		
 		# Navigate trough list
 		for side in self.sides:
 
 			# Check if side test was done before
-			if side not in self.done_sides:
+			if side not in done_sides:
 
 				# Insert that element
-				self.done_sides.append(side)
+				done_sides.append(side)
 
 				# Check for left if selected
 				if side == "left":
@@ -212,4 +223,4 @@ class __Multiple():
 # @return function       The function passed as collided callback
 def multiple(sides):
 	multiple_class = __Multiple(sides)
-	return multiple_class.fcn
+	return multiple_class.check_sides
