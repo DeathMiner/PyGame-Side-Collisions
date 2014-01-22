@@ -148,7 +148,7 @@ def bottom(A, B):
 		   A.rect.collidepoint(B.rect.topright) == True):
 
 		    # Check if B velocity moves to the bottom
-			if B.velocity.y < 0:
+			if B.velocity.y > 0:
 				return True
 
 	# Instead return False        
