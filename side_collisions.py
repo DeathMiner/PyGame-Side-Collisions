@@ -140,3 +140,62 @@ def bottom(A, B):
 
 	# Instead return False	
 	return False
+
+#
+# Sets multiple side detection
+#
+class __Multiple():
+	
+	#
+	# Inits __Multiple class
+	#
+	# @param object self  The class itself
+	# @param list   sides The sides wich has to be detected
+	def __init__(self, sides):
+		self.sides = sides
+	
+	#
+	# Checks detection on multiple sides
+	#
+	# @param object self The class itself
+	# @param object A    The first sprite
+	# @param object B    The second sprite
+	def fcn(self, A, B):
+		
+		# Navigate trough list
+		for side in sef.sides:
+			
+			# Check for left if selected
+			if side == "left":
+				if left(A, B) == True:
+					return True
+					
+			# Check for right if selected
+			elif side == "right":
+				if right(A, B) == True:
+					return True
+					
+			# Check for top if selected
+			elif side == "top":
+				if top(A, B) == True:
+					return True
+					
+			# Check for bottom if selected
+			elif side == "bottom":
+				if bottom(A, B) == True:
+					return True
+			
+			# Error if invalid side name
+			else:
+				print("Unknown side name passed in multiple side detections: \""+str(side)+"\"")
+				
+		# Return False if no collision detected
+		return False
+
+#
+# Check for collisions on multiple sides
+#
+# @param list A list of collisions: left, right, top, bottom available
+def multiple(sides):
+	return __Multiple(sides).fcn
+	
