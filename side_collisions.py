@@ -157,7 +157,7 @@ def bottom(A, B):
 #
 # Sets multiple side detection
 #
-class __Multiple():
+class _Multiple():
 	
 	#
 	# Inits __Multiple class
@@ -216,11 +216,71 @@ class __Multiple():
 		# Return False if no collision detected
 		return False
 
+	#
+	# Checks detection on multiple sides (with group support)
+	#
+	# @param  object self The class itself
+	# @param  object A    The first sprite
+	# @param  object B    The second sprite
+	# @return bool        The result of the tests 
+	def check_sides_group(self, A, B):
+		return self.check_sides(B, A)
+
 #
 # Check for collisions on multiple sides
 #
 # @param  list     sides A list of collisions: left, right, top, bottom available
 # @return function       The function passed as collided callback
 def multiple(sides):
-	multiple_class = __Multiple(sides)
+	multiple_class = _Multiple(sides)
 	return multiple_class.check_sides
+
+#
+# Detects collisions in inversed mode for support groupcollide()
+#
+class Group():
+
+	#
+	# Check if B collide on left of A
+	# 
+	# @param  object A The First sprite to check collision to
+	# @param  object B The second sprite wich would collide A on left
+	# @return bool     The result of the test
+	def left(A, B):
+		return left(B, A)
+
+	#
+	# Check if B collide on right of A
+	# 
+	# @param  object A The First sprite to check collision to
+	# @param  object B The second sprite wich would collide A on right
+	# @return bool     The result of the test
+	def right(A, B):
+		return right(B, A)
+
+	#
+	# Check if B collide on top of A
+	# 
+	# @param  object A The First sprite to check collision to
+	# @param  object B The second sprite wich would collide A on top
+	# @return bool     The result of the test
+	def top(A, B):
+		return top(B, A)
+
+	#
+	# Check if B collide on bottom of A
+	# 
+	# @param  object A The First sprite to check collision to
+	# @param  object B The second sprite wich would collide A on bottom
+	# @return bool     The result of the test
+	def bottom(A, B):
+		return bottom(B, A)
+
+	#
+	# Check for collisions on multiple sides
+	# 
+	# @param  list     sides A list of collisions: left, right, top, bottom available
+	# @return function       The function passed as collided callback
+	def multiple(sides):
+		multiple_class = _Multiple(sides)
+		return multiple_class.check_sides_group
