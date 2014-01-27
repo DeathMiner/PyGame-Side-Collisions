@@ -64,10 +64,13 @@ def left(A, B):
 	# First check if A & B collide themselves
 	if pygame.sprite.collide_rect(A, B) == True:
 		
-		# Check if right points of B are in A
+		# Check if right points of B are in A but not left points of B
 		if A.rect.collidepoint(B.rect.midright) == True and (\
 		   A.rect.collidepoint(B.rect.topright) == True or \
-		   A.rect.collidepoint(B.rect.bottomright) == True):
+		   A.rect.collidepoint(B.rect.bottomright) == True) and \
+		   A.rect.collidepoint(B.rect.midleft) == False and (\
+		   A.rect.collidepoint(B.rect.topleft) == False or \
+		   A.rect.collidepoint(B.rect.bottomleft) == False):
 
 		    # Check if B velocity moves to the left
 			if B.velocity.x > 0:
@@ -90,10 +93,13 @@ def right(A, B):
 	# First check if A & B collide themselves
 	if pygame.sprite.collide_rect(A, B) == True:
 		
-		# Check if left points of B are in A
+		# Check if left points of B are in A but not right points of B
 		if A.rect.collidepoint(B.rect.midleft) == True and (\
 		   A.rect.collidepoint(B.rect.topleft) == True or \
-		   A.rect.collidepoint(B.rect.bottomleft) == True):
+		   A.rect.collidepoint(B.rect.bottomleft) == True) and \
+		   A.rect.collidepoint(B.rect.midright) == False and (\
+		   A.rect.collidepoint(B.rect.topright) == False or \
+		   A.rect.collidepoint(B.rect.bottomright) == False):
 
 		    # Check if B velocity moves to the right
 			if B.velocity.x < 0:
@@ -116,10 +122,13 @@ def top(A, B):
 	# First check if A & B collide themselves
 	if pygame.sprite.collide_rect(A, B) == True:
 		
-		# Check if bottom points of B are in A
+		# Check if bottom points of B are in A but not top points of B
 		if A.rect.collidepoint(B.rect.midbottom) == True and (\
 		   A.rect.collidepoint(B.rect.bottomleft) == True or \
-		   A.rect.collidepoint(B.rect.bottomright) == True):
+		   A.rect.collidepoint(B.rect.bottomright) == True) and \
+		   A.rect.collidepoint(B.rect.midtop) == False and (\
+		   A.rect.collidepoint(B.rect.topleft) == False or \
+		   A.rect.collidepoint(B.rect.topright) == False):
 
 		    # Check if B velocity moves to the top
 			if B.velocity.y < 0:
@@ -142,10 +151,13 @@ def bottom(A, B):
 	# First check if A & B collide themselves
 	if pygame.sprite.collide_rect(A, B) == True:
 		
-		# Check if top points of B are in A
+		# Check if top points of B are in A but not bottom points of B
 		if A.rect.collidepoint(B.rect.midtop) == True and (\
 		   A.rect.collidepoint(B.rect.topleft) == True or \
-		   A.rect.collidepoint(B.rect.topright) == True):
+		   A.rect.collidepoint(B.rect.topright) == True) and \
+		   A.rect.collidepoint(B.rect.midbottom) == False and (\
+		   A.rect.collidepoint(B.rect.bottomleft) == False or \
+		   A.rect.collidepoint(B.rect.bottomright) == False):
 
 		    # Check if B velocity moves to the bottom
 			if B.velocity.y > 0:
